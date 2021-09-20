@@ -14,10 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
+// Route::redirect('login', 'login');
+
 Auth::routes();
+Route::group(['middleware' => ['auth']], function () {
+    
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('users', 'UsersController');
+Route::resource('sales', 'SalesController');
+Route::resource('finances', 'FinanceController');
+
+});
